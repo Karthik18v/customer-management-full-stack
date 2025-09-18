@@ -8,6 +8,8 @@ const cors = require("cors");
 connectDB();
 
 const app = express();
+
+// CORS configuration for deployment (allow all origins)
 app.use(
   cors({
     origin: "*", // Allow all domains (frontend can be anywhere)
@@ -15,20 +17,18 @@ app.use(
     credentials: true, // optional, only if using cookies/auth headers
   })
 );
+
 app.use(express.json());
 
 const port = process.env.PORT || 3000;
 
 // Routes
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.get("/", (req, res) => res.send("Hello World!"));
 
+// Create a new customer
 app.post("/customers", async (req, res) => {
-  console.log(req.body);
-
   try {
-    const customer = new Customer(req.body); // ✅ now works
+    const customer = new Customer(req.body);
     await customer.save();
     res.status(201).json(customer);
   } catch (error) {
@@ -37,13 +37,11 @@ app.post("/customers", async (req, res) => {
   }
 });
 
+// Add a new address to a customer
 app.post("/customers/:id/addresses", async (req, res) => {
-  console.log(req.body);
   try {
     const customer = await Customer.findById(req.params.id);
-    if (!customer) {
-      return res.status(404).json({ error: "Customer not found" });
-    }
+    if (!customer) return res.status(404).json({ error: "Customer not found" });
 
     const newAddress = req.body;
     customer.addresses.push(newAddress);
@@ -55,12 +53,11 @@ app.post("/customers/:id/addresses", async (req, res) => {
   }
 });
 
+// Delete a customer
 app.delete("/customers/:id", async (req, res) => {
   try {
     const customer = await Customer.findByIdAndDelete(req.params.id);
-    if (!customer) {
-      return res.status(404).json({ error: "Customer not found" });
-    }
+    if (!customer) return res.status(404).json({ error: "Customer not found" });
     res.status(204).send();
   } catch (error) {
     console.error(error);
@@ -68,15 +65,13 @@ app.delete("/customers/:id", async (req, res) => {
   }
 });
 
+// Update a customer
 app.put("/customers/:id", async (req, res) => {
-  console.log(req.params.id, req.body);
   try {
     const customer = await Customer.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    if (!customer) {
-      return res.status(404).json({ error: "Customer not found" });
-    }
+    if (!customer) return res.status(404).json({ error: "Customer not found" });
     res.status(200).json(customer);
   } catch (error) {
     console.error(error);
@@ -84,16 +79,13 @@ app.put("/customers/:id", async (req, res) => {
   }
 });
 
-// DELETE address by id
+// Delete an address
 app.delete("/customers/:id/addresses/:addressId", async (req, res) => {
   const { id, addressId } = req.params;
-  console.log("Deleting address:", addressId, "for customer:", id);
-
   try {
     const customer = await Customer.findById(id);
     if (!customer) return res.status(404).send("Customer not found");
 
-    // Remove the address from the array
     customer.addresses = customer.addresses.filter(
       (addr) => addr._id.toString() !== addressId
     );
@@ -105,12 +97,11 @@ app.delete("/customers/:id/addresses/:addressId", async (req, res) => {
   }
 });
 
+// Get a single customer
 app.get("/customers/:id", async (req, res) => {
   try {
     const customer = await Customer.findById(req.params.id);
-    if (!customer) {
-      return res.status(404).json({ error: "Customer not found" });
-    }
+    if (!customer) return res.status(404).json({ error: "Customer not found" });
     res.status(200).json(customer);
   } catch (error) {
     console.error(error);
@@ -118,22 +109,20 @@ app.get("/customers/:id", async (req, res) => {
   }
 });
 
+// Update a specific address
 app.put("/customers/:id/addresses/:addressId/edit", async (req, res) => {
   const { id, addressId } = req.params;
   const updatedAddress = req.body;
 
   try {
     const customer = await Customer.findById(id);
-    if (!customer) {
-      return res.status(404).json({ error: "Customer not found" });
-    }
+    if (!customer) return res.status(404).json({ error: "Customer not found" });
 
     const addressIndex = customer.addresses.findIndex(
       (addr) => addr._id.toString() === addressId
     );
-    if (addressIndex === -1) {
+    if (addressIndex === -1)
       return res.status(404).json({ error: "Address not found" });
-    }
 
     customer.addresses[addressIndex] = updatedAddress;
     await customer.save();
@@ -144,6 +133,7 @@ app.put("/customers/:id/addresses/:addressId/edit", async (req, res) => {
   }
 });
 
+// Get all customers
 app.get("/customers", async (req, res) => {
   try {
     const customers = await Customer.find();
@@ -155,5 +145,5 @@ app.get("/customers", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`🚀 Server running at http://localhost:${port}`);
+  console.log(`🚀 Server running on port ${port}`);
 });
