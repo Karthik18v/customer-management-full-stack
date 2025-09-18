@@ -8,7 +8,13 @@ const cors = require("cors");
 connectDB();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // Allow all domains (frontend can be anywhere)
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // optional, only if using cookies/auth headers
+  })
+);
 app.use(express.json());
 
 const port = process.env.PORT || 3000;
