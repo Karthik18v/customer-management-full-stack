@@ -12,7 +12,7 @@ const app = express();
 // CORS configuration for deployment (allow all origins)
 app.use(
   cors({
-    origin: "*", // Allow all domains (frontend can be anywhere)
+    origin: "*https://customer-management-full-stack-fqxj.vercel.app/", // Allow all domains (frontend can be anywhere)
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true, // optional, only if using cookies/auth headers
   })
