@@ -8,7 +8,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const apiUrl = "http://localhost:3000/customers";
+        const apiUrl = "https://customer-management-full-stack.vercel.app/customers";
         const response = await fetch(apiUrl);
         const data = await response.json();
         setCustomers(data);
