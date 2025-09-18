@@ -19,7 +19,7 @@ export default function AddNewAddressForm() {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3000/customers/${id}/addresses/`,
+        `https://customer-management-full-stack.vercel.app/customers/${id}/addresses/`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
