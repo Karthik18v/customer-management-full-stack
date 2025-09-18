@@ -1,0 +1,91 @@
+/* Page background */
+.edit-address-page {
+    padding: 40px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #eef2f7;
+    min-height: 100vh;
+}
+
+/* Card container */
+.edit-address-card {
+    max-width: 520px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.edit-address-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 22px;
+}
+
+/* Form layout */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #555;
+    font-size: 14px;
+    display: block;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    outline: none;
+    transition: border 0.2s ease;
+}
+
+.form-group input:focus {
+    border: 1px solid #007bff;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.save-btn {
+    background-color: #ffc107;
+    margin-top: 10px;
+}
+
+.save-btn:hover {
+    background-color: #e0a800;
+}
+
+.back-btn {
+    background-color: #007bff;
+    margin-top: 18px;
+}
+
+.back-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Loading */
+.loading {
+    padding: 40px;
+    text-align: center;
+    font-size: 18px;
+}
