@@ -16,7 +16,7 @@ export default function EditAddressForm() {
   useEffect(() => {
     const fetchAddress = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/customers/${id}`);
+        const response = await fetch(`https://customer-management-full-stack.vercel.app/customers/${id}`);
         const data = await response.json();
         const address = data.addresses.find((addr) => addr._id === addressId);
         if (address) {
@@ -45,7 +45,7 @@ export default function EditAddressForm() {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3000/customers/${id}/addresses/${addressId}/edit`,
+        `https://customer-management-full-stack.vercel.app//customers/${id}/addresses/${addressId}/edit`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
