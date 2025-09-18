@@ -28,7 +28,7 @@ export default function NewCustomerForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:3000/customers", {
+    fetch("https://customer-management-full-stack.vercel.app/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
