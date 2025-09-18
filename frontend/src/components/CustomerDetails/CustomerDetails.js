@@ -9,7 +9,7 @@ export default function CustomerDetails() {
 
   const fetchCustomerDetails = async () => {
     try {
-      const apiUrl = `http://localhost:3000/customers/${id}`;
+      const apiUrl = `https://customer-management-full-stack.vercel.app/customers/${id}`;
       const response = await fetch(apiUrl);
       const data = await response.json();
       setUserData(data);
@@ -28,7 +28,7 @@ export default function CustomerDetails() {
 
     try {
       await fetch(
-        `http://localhost:3000/customers/${id}/addresses/${addressId}`,
+        `https://customer-management-full-stack.vercel.app/customers/${id}/addresses/${addressId}`,
         {
           method: "DELETE",
         }
